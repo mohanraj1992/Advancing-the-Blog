@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'crispy_forms',
     'markdown_deux',
     'pagedown',
+    'rest_framework',
 
     # local apps
     'comments',
     'posts',
+
 
 ]
 
