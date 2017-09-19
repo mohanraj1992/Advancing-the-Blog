@@ -16,7 +16,15 @@ class PostListSerializer(ModelSerializer):
 class PostDetailSerializer(ModelSerializer):
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = [
+            'title',
+            'slug',
+            'content',
+            'publish'
+        ]
+
+
+
 
 
         # To print all contents
