@@ -7,12 +7,22 @@ from rest_framework.generics import (
     RetrieveUpdateAPIView
     )
 
+from rest_framework.permissions import (
+    AllowAny,
+    IsAuthenticated,
+    IsAdminUser,
+    IsAuthenticatedOrReadOnly
+    )
+
+from .permissions import IsOwnerOrReadOnly
+
 from ..models import  Post
 from .serializers import PostListSerializer, PostDetailSerializer, PostCreateSerializer
 
 class PostCreateAPIView(CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostCreateSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -30,6 +40,7 @@ class RetrieveListAPIView(RetrieveAPIView):
 class PostUpdateAPIView(RetrieveUpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     lookup_field = 'slug'
 
     def perform_update(self, serializer):
