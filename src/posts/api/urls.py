@@ -5,12 +5,13 @@ from .views import (
 	RetrieveListAPIView,
 	PostListAPIView,
 	PostUpdateAPIView,
-	PostDeleteAPIView
+	PostDeleteAPIView,
+	PostCreateAPIView
 	)
 
 urlpatterns = [
 	url(r'^$', PostListAPIView.as_view(), name='list'),
-    # url(r'^create/$', post_create),
+    url(r'^create/$', PostCreateAPIView.as_view(), name='create'),
     url(r'^(?P<slug>[\w-]+)/$', RetrieveListAPIView.as_view(), name='detail'), #for this we can try hitting with "http://localhost:8000/api/posts/new-post-2/" here new-post-2 is slug name
     url(r'^(?P<slug>[\w-]+)/edit/$',PostUpdateAPIView.as_view() , name='update'),
     url(r'^(?P<slug>[\w-]+)/delete/$', PostDeleteAPIView.as_view(), name='delete'),
